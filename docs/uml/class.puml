@@ -1,0 +1,45 @@
+@startuml
+class "code.js (Frontend)" as Client {
+  +userId: int
+  +firstName: String
+  +lastName: String
+  +doLogin()
+  +saveCookie()
+  +readCookie()
+  +doLogout()
+  +addColor()
+  +searchColor()
+}
+
+class "Login.php" as Login {
+  +getRequestInfo(): array
+  +sendResultInfoAsJson(obj: string)
+  +returnWithError(err: string)
+  +returnWithInfo(firstName: string, lastName: string, id: int)
+}
+
+class "AddColor.php" as AddColor {
+  +getRequestInfo(): array
+  +sendResultInfoAsJson(obj: string)
+  +returnWithError(err: string)
+}
+
+class "SearchColors.php" as SearchColors {
+  +getRequestInfo(): array
+  +sendResultInfoAsJson(obj: string)
+  +returnWithError(err: string)
+}
+
+class "MySQL Database" as DB {
+  +Users (ID, DateCreated, DateLastLoggedIn, FirstName, LastName, Login, Password)
+  +Colors (ID, UserId, Name)
+}
+
+Client --> Login : POST /LAMPAPI/Login.php
+Client --> AddColor : POST /LAMPAPI/AddColor.php
+Client --> SearchColors : POST /LAMPAPI/SearchColors.php
+
+Login --> DB : SELECT
+AddColor --> DB : INSERT
+SearchColors --> DB : SELECT
+@enduml

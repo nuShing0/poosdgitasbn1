@@ -1,0 +1,24 @@
+@startuml
+start
+:User enters credentials;
+:Frontend hashes password (MD5);
+:POST JSON payload to Login.php;
+if (Database match?) then (yes)
+  :Create session cookie;
+  :Redirect to color.html;
+  split
+    :Enter new color name;
+    :POST to AddColor.php;
+    :Insert color into MySQL;
+    :Return success JSON;
+  split again
+    :Enter search query;
+    :POST to SearchColors.php;
+    :Fetch matches from MySQL;
+    :Return results JSON;
+  end split
+else (no)
+  :Display "User/Password combination incorrect";
+endif
+stop
+@enduml

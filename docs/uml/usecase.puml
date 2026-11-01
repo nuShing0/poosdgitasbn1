@@ -1,0 +1,13 @@
+@startuml
+left to right direction
+actor "User" as user
+package "COLORS System" {
+  usecase "Log In" as UC1
+  usecase "Add Custom Color" as UC2
+  usecase "Search Colors" as UC3
+}
+user --> UC1
+user --> UC2
+user --> UC3
+UC1 .> (Hash Password with MD5) : <<include>>
+@enduml
